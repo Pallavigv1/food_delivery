@@ -1,21 +1,36 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/screens/bottom%20_navigation.dart';
 //import 'package:food_delivery/screens/home_screen.dart';
 //import 'package:food_delivery/screens/bottom _navigation.dart';
+// ignore: unused_import
 import 'package:food_delivery/utilities/verification_otp.dart';
 
-class PhoneNumber extends StatefulWidget {
-  // Rename class name - phone number
-  const PhoneNumber({super.key});
+class EmailAddress extends StatefulWidget {
+  const EmailAddress({super.key});
 
   @override
-  State<PhoneNumber> createState() => _PhoneNumberState();
+  State<EmailAddress> createState() => _EmailAddressState();
 }
 
-class _PhoneNumberState extends State<PhoneNumber> {
+class _EmailAddressState extends State<EmailAddress> {
+  final user = FirebaseAuth.instance.currentUser;
   final _formKey = GlobalKey<FormState>();
 
   bool checkedValue = false;
+
+  // signout() async {
+  //   await FirebaseAuth.instance.signOut();
+  // }
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  Future<void> SignIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email.text,
+      password: password.text,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +55,7 @@ class _PhoneNumberState extends State<PhoneNumber> {
               SizedBox(height: 20),
 
               Text(
-                ' Phone Number ',
+                ' Email Address',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
@@ -61,10 +76,6 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   if (value == null || value.isEmpty) {
                     return 'Enter email';
                   }
-                  if (value.length == 10 && int.tryParse(value) != null) {
-                    return null;
-                  }
-
                   if (!value.contains('@gmail.com')) {
                     return 'Enter valid email address';
                   }
@@ -174,34 +185,11 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       backgroundColor: Color(0xffFA4A0C),
                     ),
                     onPressed: () async {
-                      final otp = await showOtpDialouge(context);
-
-                      if (otp != null && otp.length == 6) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BottomNavigation(),
-                          ),
-                        );
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
 
-                    // {
-
-                    //   if (_formKey.currentState!.validate()) {
-                    //     Navigator.pushReplacement(
-                    //       context,
-                    //       MaterialPageRoute<void>(
-                    //         builder: (context) => const BottomNavigation(),
-                    //       ),
-                    //     );
-                    //     // ScaffoldMessenger.of(
-                    //     //   context,
-                    //     // ).showSnackBar(SnackBar(content: Text('Login Successful')));
-                    //   }
-                    // },
                     child: Text(
-                      'Send Verification Code',
+                      ' Send Verification Code',
 
                       style: TextStyle(
                         color: Color(0xffF6F6F9),

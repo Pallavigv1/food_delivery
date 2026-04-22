@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/screens/login_screen.dart';
 import 'package:food_delivery/screens/phone_number.dart';
+import 'package:food_delivery/screens/email_address.dart';
 //import 'package:food_delivery/screens/signup_screen.dart';
 //import 'package:food_delivery/screens/bottom _navigation.dart';
 
@@ -70,8 +70,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
 
                           tabs: [
-                            Tab(text: 'Phone number'),
-                            Tab(text: 'Email'),
+                            Tab(text: ' Phone number'),
+                            Tab(text: 'Email Address'),
                           ],
                         ),
                       ],
@@ -79,10 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Expanded(
                     child: TabBarView(
-                      children: [
-                        EmailAddress() /*SignupScreen()*/,
-                        PhoneNumber(),
-                      ],
+                      children: [PhoneNumber(), EmailAddress()],
                     ),
                   ),
                 ],

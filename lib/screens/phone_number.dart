@@ -1,18 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/screens/bottom%20_navigation.dart';
+import 'package:food_delivery/utilities/done_screen.dart';
+
 //import 'package:food_delivery/screens/home_screen.dart';
 //import 'package:food_delivery/screens/bottom _navigation.dart';
-import 'package:food_delivery/utilities/verification_otp.dart';
+import 'package:flutter/services.dart';
 
-class EmailAddress extends StatefulWidget {
-  const EmailAddress({super.key});
+class PhoneNumber extends StatefulWidget {
+  // Rename class name - phone number
+  const PhoneNumber({super.key});
 
   @override
-  State<EmailAddress> createState() => _EmailAddressState();
+  State<PhoneNumber> createState() => _PhoneNumberState();
 }
 
-class _EmailAddressState extends State<EmailAddress> {
+class _PhoneNumberState extends State<PhoneNumber> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController phoneController = TextEditingController();
 
   bool checkedValue = false;
 
@@ -39,7 +43,7 @@ class _EmailAddressState extends State<EmailAddress> {
               SizedBox(height: 20),
 
               Text(
-                'Email ',
+                'Phone Number',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
@@ -49,85 +53,32 @@ class _EmailAddressState extends State<EmailAddress> {
               SizedBox(height: 2),
 
               TextFormField(
-                decoration: InputDecoration(
-                  suffix: TextButton(
-                    onPressed: () async {
-                      final otp = await showOtpDialouge(context);
-
-                      if (otp != null && otp.length == 6) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BottomNavigation(),
-                          ),
-                        );
-                      }
-                    },
-
-                    child: Text(
-                      'Send Code',
-                      style: TextStyle(
-                        color: Color(0xffFA4A0C),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-                ),
+                decoration: InputDecoration(prefixText: "+91"),
                 obscureText: false,
+                keyboardType: TextInputType.phone,
+                controller: phoneController,
+
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
                 onChanged: (value) {
                   setState(() {});
                   _formKey.currentState!.validate();
                 },
 
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Enter email';
-                  }
-                  if (value.length == 10 && int.tryParse(value) != null) {
+                  if (value?.length == 10 && int.tryParse(value!) != null) {
                     return null;
                   }
-
-                  if (!value.contains('@gmail.com')) {
-                    return 'Enter valid email address';
-                  }
-
-                  if (!value.endsWith('@gmail.com')) {
-                    return 'Invalid email address';
+                  if (value?.length != 10) {
+                    return 'Mobile Number must be of 10 digit';
                   } else {
                     return null;
                   }
                 },
               ),
 
-              // SizedBox(height: 20),
-
-              // Text(
-              //   'Password',
-              //   style: TextStyle(
-              //     fontSize: 15,
-              //     color: Colors.grey,
-              //     fontWeight: FontWeight.w800,
-              //   ),
-              // ),
-
-              // SizedBox(height: 2),
-
-              // TextFormField(
-              //   onChanged: (value) {},
-              //   obscureText: true,
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return 'Enter Password';
-              //     }
-
-              //     if (value.length < 8) {
-              //       return 'Password must have atleast 8 characters';
-              //     } else {
-              //       return null;
-              //     }
-              //   },
-              // ),
               SizedBox(height: 20),
 
               Row(
@@ -196,22 +147,56 @@ class _EmailAddressState extends State<EmailAddress> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffFA4A0C),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (context) => const BottomNavigation(),
-                          ),
+                    onPressed: () async {
+                      if (!_formKey.currentState!.validate()) return;
+                      print('Botton Clicked');
+                      print('phone number : +91${phoneController.text}');
+
+                      try {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: "+91${phoneController.text}",
+
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) {
+                                print('Auto verification completed');
+                              },
+
+                          verificationFailed: (FirebaseAuthException ex) {
+                            print('Verification Failed');
+                          },
+
+                          codeSent: (String verificationId, int? resendToken) {
+                            print('Code has bee sent');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DoneScreen(
+                                    verificationId: verificationId,
+                                  );
+                                },
+                              ),
+                            );
+
+                            // catch (e) {
+                            //   ScaffoldMessenger.of(context).showSnackBar(
+                            //     SnackBar(content: Text('Invalid OTP')),
+                            //   );
+                            // }
+                          },
+
+                          codeAutoRetrievalTimeout: (String verificationId) {
+                            print('Time out send again');
+                          },
                         );
-                        // ScaffoldMessenger.of(
-                        //   context,
-                        // ).showSnackBar(SnackBar(content: Text('Login Successful')));
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Something went wrong")),
+                        );
                       }
                     },
 
                     child: Text(
-                      ' Send Verification Code',
+                      'Send Verification Code',
 
                       style: TextStyle(
                         color: Color(0xffF6F6F9),

@@ -35,14 +35,30 @@ android {
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+    debug {
+        // Disable stripping debug symbols for debug builds
+        ndk {
+            debugSymbolLevel = "NONE"
         }
     }
+    release {
+        // Keep your existing release config
+        signingConfig = signingConfigs.getByName("debug")
+        // Optional: also disable stripping if needed
+        // ndk {
+        //     debugSymbolLevel = "NONE"
+        // }
+    }
+}
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:21.5.1")
 }

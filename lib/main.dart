@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:food_delivery/pages/product_details.dart';
 //import 'package:food_delivery/pages/login_page.dart';
 //import 'package:food_delivery/screens/login_screen.dart';
 //import 'package:food_delivery/screens/signup_screen.dart';
@@ -8,14 +10,14 @@ import 'package:flutter/material.dart';
 //import 'package:food_delivery/pages/login_page.dart';
 //import 'package:food_delivery/screens/history.dart';
 //import 'screens/bottom _navigation.dart';
-import 'package:food_delivery/screens/splash_screen.dart';
+//import 'package:food_delivery/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:food_delivery/screens/splash_screen.dart';
+import 'package:food_delivery/utilities/done_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: DoneScreen(verificationId: "+918618"),
       //   body: Center(
       //     child: CircleAvatar(
       //       radius: 100,

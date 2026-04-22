@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 //import 'package:food_delivery/bottom_navigation/favourites.dart';
 //import 'package:food_delivery/bottom_navigation/person.dart';
 import 'package:food_delivery/pages/foods_section.dart';
-import 'package:food_delivery/screens/bottom%20_navigation.dart';
+import 'package:food_delivery/pages/search_result.dart';
+//import 'package:food_delivery/screens/bottom_navigation.dart';
 //import 'package:food_delivery/screens/bottom _navigation.dart';
 //import 'package:food_delivery/screens/history.dart';
 
@@ -14,36 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // double xOffset = 0;
+  // double yOffset = 0;
+  // double scaleFactor = 1;
+
+  final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Material(
       child: SafeArea(
-        // backgroundColor: Color(0xffF2F2F2),
-
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   toolbarHeight: 70,
-
-        //   leading: Padding(
-        //     padding: const EdgeInsets.only(left: 30, top: 30),
-        //     child: IconButton(
-        //       icon: Icon(Icons.menu, color: Colors.black),
-        //       onPressed: () {},
-        //     ),
-        //   ),
-
-        //   actions: [
-        //     Padding(
-        //       padding: const EdgeInsets.only(right: 30, top: 30),
-        //       child: IconButton(
-        //         icon: Icon(Icons.shopping_cart_outlined, color: Colors.grey),
-        //         onPressed: () {},
-        //       ),
-        //     ),
-        //   ],
-        // ),
         child: DefaultTabController(
           length: 4,
+
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -68,20 +51,33 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 60,
                     width: 314,
 
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffEFEEEE),
-                        prefixIcon: Icon(Icons.search),
-                        hintText: 'Search',
-                        hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
+                    child: GestureDetector(
+                      child: TextField(
+                        controller: searchController,
+                        onSubmitted: (foodName) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SearchResult(searchedName: foodName);
+                              },
+                            ),
+                          );
+                        },
+
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xffEFEEEE),
+                          prefixIcon: Icon(Icons.search),
+                          hintText: 'Search',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
                         ),
                       ),
                     ),
@@ -126,6 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+                // AnimatedContainer(
+                //   transform: Matrix4.translationValues(x, y, z),
+                //   duration: Duration(milliseconds: 250)),
               ],
             ),
           ),
