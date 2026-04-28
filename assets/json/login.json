@@ -1,0 +1,22 @@
+[{
+  "status": "success",
+  "message": "OTP sent successfully",
+  "data": {
+    "otpId": "OTP_123456",
+    "otp": "123456",
+    "email": "user@gmail.com",
+    "expiresIn": 300
+  }
+},
+
+{
+  "status": "success",
+  "message": "Login successful",
+  "data": {
+    "userId": "U123",
+    "email": "user@gmail.com",
+    "name": "Pallavi",
+    "token": "jwt_token_abc123",
+    "isNewUser": false
+  }
+}]

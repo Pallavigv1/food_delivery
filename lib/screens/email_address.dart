@@ -1,9 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
+
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/json/auth/usecases/send_Otp.dart';
+import 'package:food_delivery/screens/email_done_screen.dart';
 //import 'package:food_delivery/screens/home_screen.dart';
 //import 'package:food_delivery/screens/bottom _navigation.dart';
 // ignore: unused_import
 import 'package:food_delivery/utilities/verification_otp.dart';
+import 'package:flutter/services.dart';
 
 class EmailAddress extends StatefulWidget {
   const EmailAddress({super.key});
@@ -13,8 +18,25 @@ class EmailAddress extends StatefulWidget {
 }
 
 class _EmailAddressState extends State<EmailAddress> {
-  final user = FirebaseAuth.instance.currentUser;
+  //final user = FirebaseAuth.instance.currentUser;
   final _formKey = GlobalKey<FormState>();
+  List<Map<String, dynamic>>? jsonData;
+  Future<void> loadJsonAsset() async {
+    final String jsonString = await rootBundle.loadString(
+      'assets/json/login.json',
+    );
+    var data = jsonDecode(jsonString);
+    setState(() {
+      jsonData = data;
+    });
+    print(jsonData![0]['message']);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadJsonAsset();
+  }
 
   bool checkedValue = false;
 
@@ -25,12 +47,12 @@ class _EmailAddressState extends State<EmailAddress> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  Future<void> SignIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: email.text,
-      password: password.text,
-    );
-  }
+  // Future<void> SignIn() async {
+  //   await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //     email: email.text,
+  //     password: password.text,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,8 +206,15 @@ class _EmailAddressState extends State<EmailAddress> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffFA4A0C),
                     ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {}
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) ;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return EmailDoneScreen();
+                          },
+                        ),
+                      );
                     },
 
                     child: Text(

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DoneScreen(verificationId: "+918618"),
+      home: SplashScreen(),
       //   body: Center(
       //     child: CircleAvatar(
       //       radius: 100,

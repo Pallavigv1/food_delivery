@@ -1,0 +1,26 @@
+[{
+  "status": "success",
+  "message": "Item added to cart",
+  "data": {
+    "cartId": "CART_001",
+    "items": [
+      {
+        "productId": "P101",
+        "name": "Veg Burger",
+        "price": 120,
+        "quantity": 2,
+        "image": "burger.png"
+
+
+      }
+    ],
+    "pricing": {
+      "subtotal": 240,
+      "deliveryFee": 40,
+  "handling chargess": 0.00,
+      "tax": 20,
+      "total": 300
+    }
+  }
+}
+]

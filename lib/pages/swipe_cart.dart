@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
 import 'package:food_delivery/constants/cart_data.dart';
 import 'package:food_delivery/pages/check_out.dart';
@@ -27,6 +29,24 @@ class _SwipeCartState extends State<SwipeCart> {
   // }
 
   List<Map<String, dynamic>> get foodItems => MyCartData.cartItems;
+
+  // List<Map<String, dynamic>>? jsonData;
+  // Future<void> loadJsonAsset() async {
+  //   final String jsonString = await rootBundle.loadString(
+  //     'assets/json/cart.json',
+  //   );
+  //   final data = jsonDecode(jsonString);
+  //   print(data);
+  //   setState(() {
+  //     jsonData = data;
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadJsonAsset();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -310,231 +330,6 @@ class _SwipeCartState extends State<SwipeCart> {
                       ),
                     ),
 
-                    //SizedBox(height: 25),
-
-                    // SizedBox(height: 25),
-
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 40, right: 40),
-                    //   child: Container(
-                    //     height: 102,
-                    //     width: 315,
-                    //     decoration: BoxDecoration(
-                    //       color: Color(0xffFFFFFF),
-                    //       borderRadius: BorderRadius.circular(20),
-                    //     ),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(15.0),
-                    //           child: CircleAvatar(
-                    //             radius: 34.6, // half of 69.21
-                    //             backgroundImage: AssetImage('assets/images/food_2.jpg'),
-                    //           ),
-                    //         ),
-
-                    //         SizedBox(width: 3),
-
-                    //         Column(
-                    //           mainAxisAlignment: MainAxisAlignment.center,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-
-                    //           children: [
-                    //             Text(
-                    //               'Fishwith mix orange....',
-                    //               style: TextStyle(
-                    //                 color: Color(0xff000000),
-                    //                 fontSize: 17,
-                    //                 fontWeight: FontWeight(600),
-                    //               ),
-                    //             ),
-
-                    //             SizedBox(height: 2),
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //               children: [
-                    //                 Padding(
-                    //                   padding: const EdgeInsets.only(
-                    //                     top: 0,
-                    //                     //right: 80,
-                    //                   ),
-                    //                   child: Text(
-                    //                     '#1,900',
-                    //                     style: TextStyle(
-                    //                       color: Color(0xffFA4A0C),
-                    //                       fontSize: 15,
-                    //                       fontWeight: FontWeight(600),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-
-                    //                 SizedBox(width: 75, height: 60),
-                    //                 Container(
-                    //                   padding: EdgeInsets.zero,
-                    //                   decoration: BoxDecoration(
-                    //                     color: Color(0xffFA4A0C),
-                    //                     borderRadius: BorderRadius.circular(20),
-                    //                   ),
-                    //                   child: Row(
-                    //                     //crossAxisAlignment: CrossAxisAlignment.end,
-                    //                     //mainAxisAlignment: MainAxisAlignment.end,
-                    //                     children: [
-                    //                       GestureDetector(
-                    //                         onTap: decrement,
-                    //                         child: Padding(
-                    //                           padding: EdgeInsets.symmetric(
-                    //                             horizontal: 6,
-                    //                           ),
-                    //                           child: Icon(
-                    //                             Icons.remove,
-                    //                             color: Colors.white,
-                    //                             size: 16,
-                    //                           ),
-                    //                         ),
-                    //                       ),
-
-                    //                       Text(
-                    //                         '$counter',
-                    //                         style: TextStyle(color: Colors.white),
-                    //                       ),
-
-                    //                       GestureDetector(
-                    //                         onTap: increment,
-                    //                         child: Padding(
-                    //                           padding: EdgeInsets.symmetric(
-                    //                             horizontal: 6,
-                    //                           ),
-                    //                           child: Icon(
-                    //                             Icons.add,
-                    //                             color: Colors.white,
-                    //                             size: 16,
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-
-                    // SizedBox(height: 25),
-
-                    // Padding(
-                    //   padding: const EdgeInsets.only(left: 40, right: 40),
-                    //   child: Container(
-                    //     height: 102,
-                    //     width: 315,
-                    //     decoration: BoxDecoration(
-                    //       color: Color(0xffFFFFFF),
-                    //       borderRadius: BorderRadius.circular(20),
-                    //     ),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.start,
-                    //       children: [
-                    //         Padding(
-                    //           padding: const EdgeInsets.all(15.0),
-                    //           child: CircleAvatar(
-                    //             radius: 34.6, // half of 69.21
-                    //             backgroundImage: AssetImage('assets/images/food_3.jpg'),
-                    //           ),
-                    //         ),
-
-                    //         SizedBox(width: 3),
-
-                    //         Column(
-                    //           mainAxisAlignment: MainAxisAlignment.center,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-
-                    //           children: [
-                    //             Text(
-                    //               'Veggie tomato mix',
-                    //               style: TextStyle(
-                    //                 color: Color(0xff000000),
-                    //                 fontSize: 17,
-                    //                 fontWeight: FontWeight(600),
-                    //               ),
-                    //             ),
-
-                    //             SizedBox(height: 2),
-                    //             Row(
-                    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //               children: [
-                    //                 Padding(
-                    //                   padding: const EdgeInsets.only(
-                    //                     top: 0,
-                    //                     //right: 80,
-                    //                   ),
-                    //                   child: Text(
-                    //                     '#1,900',
-                    //                     style: TextStyle(
-                    //                       color: Color(0xffFA4A0C),
-                    //                       fontSize: 15,
-                    //                       fontWeight: FontWeight(600),
-                    //                     ),
-                    //                   ),
-                    //                 ),
-
-                    //                 SizedBox(width: 75, height: 60),
-                    //                 Container(
-                    //                   padding: EdgeInsets.zero,
-                    //                   decoration: BoxDecoration(
-                    //                     color: Color(0xffFA4A0C),
-                    //                     borderRadius: BorderRadius.circular(20),
-                    //                   ),
-                    //                   child: Row(
-                    //                     //crossAxisAlignment: CrossAxisAlignment.end,
-                    //                     //mainAxisAlignment: MainAxisAlignment.end,
-                    //                     children: [
-                    //                       GestureDetector(
-                    //                         onTap: decrement,
-                    //                         child: Padding(
-                    //                           padding: EdgeInsets.symmetric(
-                    //                             horizontal: 6,
-                    //                           ),
-                    //                           child: Icon(
-                    //                             Icons.remove,
-                    //                             color: Colors.white,
-                    //                             size: 16,
-                    //                           ),
-                    //                         ),
-                    //                       ),
-
-                    //                       Text(
-                    //                         '$counter',
-                    //                         style: TextStyle(color: Colors.white),
-                    //                       ),
-
-                    //                       GestureDetector(
-                    //                         onTap: increment,
-                    //                         child: Padding(
-                    //                           padding: EdgeInsets.symmetric(
-                    //                             horizontal: 6,
-                    //                           ),
-                    //                           child: Icon(
-                    //                             Icons.add,
-                    //                             color: Colors.white,
-                    //                             size: 16,
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     ],
-                    //                   ),
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                     SizedBox(height: 20),
                     SizedBox(
                       height: 75,

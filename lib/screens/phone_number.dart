@@ -154,13 +154,12 @@ class _PhoneNumberState extends State<PhoneNumber> {
 
                       try {
                         await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "+91${phoneController.text}",
+                          phoneNumber: "+91${phoneController.text.trim()}",
 
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) {
-                                print('Auto verification completed');
-                              },
-
+                          // verificationCompleted:
+                          //     (PhoneAuthCredential credential) {
+                          //       print('Auto verification completed');
+                          //     },
                           verificationFailed: (FirebaseAuthException ex) {
                             print('Verification Failed');
                           },
@@ -187,6 +186,8 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           codeAutoRetrievalTimeout: (String verificationId) {
                             print('Time out send again');
                           },
+                          verificationCompleted:
+                              (PhoneAuthCredential phoneAuthCredential) {},
                         );
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(

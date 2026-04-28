@@ -35,38 +35,32 @@ class _DoneScreenState extends State<DoneScreen> {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () async {
-              verifyPhoneNumber(context, "8111019170");
-              // try {
-              //   PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              //     verificationId: widget.verificationId,
-              //     smsCode: otpController.text.toString(),
-              //   );
-              //   await FirebaseAuth.instance
-              //       .signInWithCredential(credential)
-              //       .then((value) {
-              //         Navigator.of(context).push(
-              //           MaterialPageRoute(
-              //             builder: (context) {
-              //               return DrawerScreen();
-              //             },
-              //           ),
-              //         );
-              //       });
-              // } catch (ex) {
-              //   print(ex.toString());
-              //   ScaffoldMessenger.of(
-              //     context,
-              //   ).showSnackBar(SnackBar(content: Text("Invalid OTP")));
-              // }
-            },
+              try {
+                final credential = PhoneAuthProvider.credential(
+                  verificationId: widget.verificationId,
+                  smsCode: otpController.text.trim(),
+                );
 
-            child: Text('Verify'),
+                await FirebaseAuth.instance.signInWithCredential(credential);
+
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => DrawerScreen()),
+                );
+              } catch (e) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text("Invalid OTP")));
+              }
+            },
+            child: const Text('Verify'),
           ),
         ],
       ),
     );
   }
 
+  // ignore: unused_element
   static void verifyPhoneNumber(BuildContext context, String number) async {
     String verId = "";
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;

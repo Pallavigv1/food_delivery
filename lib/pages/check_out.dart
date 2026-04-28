@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
+import 'package:food_delivery/constants/total_amount.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({super.key});
@@ -9,6 +10,28 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
+  List<Map<String, dynamic>> get foodItems => TotalAmount.totalamount;
+  // double CalculateTotal(List<Map<String, dynamic>> cartItems) {
+  //   return cartItems.fold(
+  //     0.0,
+  //     (previousValue, item) =>
+  //         previousValue + (item['price'] * item['quantity']),
+  //   );
+  // }
+
+  static const double deliveryCharge = 40;
+  static const double gstPerc = 0.05;
+
+  double grosstotal(List<Map<String, dynamic>> items) {
+    return items.fold(
+      0.0,
+      (sum, item) => sum + (item['price'] * item['quantity']),
+    );
+  }
+
+  double get subgrosstotal => grosstotal(TotalAmount.totalamount);
+  double get gst => subgrosstotal * gstPerc;
+  double get total => subgrosstotal + gst + deliveryCharge;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,7 +269,7 @@ class _CheckOutState extends State<CheckOut> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 80),
                     child: Text(
-                      '23,000',
+                      '# ${total.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Color(0xff000000),
                         fontSize: 22,
