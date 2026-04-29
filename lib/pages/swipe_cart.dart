@@ -63,7 +63,7 @@ class _SwipeCartState extends State<SwipeCart> {
             icon: const Icon(Icons.arrow_back_ios),
             iconSize: 20,
             onPressed: () {
-              Navigator.of(context).pop(FavBlank());
+              Navigator.of(context).pop();
             },
           ),
         ),
@@ -134,6 +134,7 @@ class _SwipeCartState extends State<SwipeCart> {
 
                               color: Color(0xffDF2C2C),
                             ),
+
 
                             secondaryBackground: Container(
                               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -209,7 +210,7 @@ class _SwipeCartState extends State<SwipeCart> {
                                     Padding(
                                       padding: const EdgeInsets.all(15.0),
                                       child: CircleAvatar(
-                                        radius: 34.6, // half of 69.21
+                                        radius: 34.6,
                                         backgroundImage: AssetImage(
                                           foodItems[index].image,
                                         ),

@@ -31,7 +31,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             icon: const Icon(Icons.arrow_back_ios),
             iconSize: 20,
             onPressed: () {
-              Navigator.of(context).pop(HomeScreen());
+              Navigator.of(context).pop();
             },
           ),
         ),
