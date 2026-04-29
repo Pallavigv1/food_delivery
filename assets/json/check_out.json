@@ -1,0 +1,37 @@
+{
+    "Add address": "add address details",
+    "change": "address details change",
+    "Address details":{
+        "Name": "Marvis Kaparobo",
+        "Address": "Km 5 refinery road opposite republic road,effurun, delta state",
+        "Phone Number":"+919011039271",
+        "LandMark (optional)":" Any nearby popular place"
+
+    },
+    "Delivery Method":{
+        "Door Delivery":"Exact house number in address",
+        "validation 1": "Signature from recipient ",
+        "validation 2": "Digital otp from recipient",
+        "status": "Delivered succesfully",
+        "Pick up":{
+            "Location 1": "Leave at a landmark",
+            "Location 2": " Post office",
+            "Loctaion 3": "Handover to recipient",
+            "validation": " Signature or digital validation from reciver",
+            "message": "sms and email of reciver information to recipient",
+            "status": "Delivered succesfully"
+        }
+    },
+
+    "Total":{
+        "GrossTotal": "Food amount * quantity ",
+        "Delivery Charges":"40",
+        "gst percentage": "5% - food amount *0.05",
+        "Grandtotal": "sum of((Food amount * quantity)+delivery charges)+ gst"
+
+
+        
+    }
+
+    
+}

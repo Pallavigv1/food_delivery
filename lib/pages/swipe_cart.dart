@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
 import 'package:food_delivery/constants/cart_data.dart';
+import 'package:food_delivery/constants/food_data.dart';
 import 'package:food_delivery/pages/check_out.dart';
 
 class SwipeCart extends StatefulWidget {
@@ -28,7 +29,7 @@ class _SwipeCartState extends State<SwipeCart> {
   //   });
   // }
 
-  List<Map<String, dynamic>> get foodItems => MyCartData.cartItems;
+  List<FoodItem> get foodItems => MyCartData.cartItems;
 
   // List<Map<String, dynamic>>? jsonData;
   // Future<void> loadJsonAsset() async {
@@ -126,9 +127,7 @@ class _SwipeCartState extends State<SwipeCart> {
                           //final item = foodItems[index];
 
                           return Dismissible(
-                            key: Key(
-                              foodItems[index]["name"] + index.toString(),
-                            ),
+                            key: Key(foodItems[index].name + index.toString()),
                             background: Container(
                               height: 45,
                               width: 45,
@@ -186,7 +185,7 @@ class _SwipeCartState extends State<SwipeCart> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                    '${foodItems[index]["name"]} removed from cart',
+                                    '${foodItems[index].name} removed from cart',
                                   ),
                                 ),
                               );
@@ -212,7 +211,7 @@ class _SwipeCartState extends State<SwipeCart> {
                                       child: CircleAvatar(
                                         radius: 34.6, // half of 69.21
                                         backgroundImage: AssetImage(
-                                          foodItems[index]["image"],
+                                          foodItems[index].image,
                                         ),
                                       ),
                                     ),
@@ -227,7 +226,7 @@ class _SwipeCartState extends State<SwipeCart> {
 
                                       children: [
                                         Text(
-                                          foodItems[index]["name"],
+                                          foodItems[index].name,
                                           style: TextStyle(
                                             color: Color(0xff000000),
                                             fontSize: 17,
@@ -246,7 +245,7 @@ class _SwipeCartState extends State<SwipeCart> {
                                                 //right: 80,
                                               ),
                                               child: Text(
-                                                "# ${foodItems[index]["price"]}",
+                                                "# ${foodItems[index].price}",
                                                 style: TextStyle(
                                                   color: Color(0xffFA4A0C),
                                                   fontSize: 15,
@@ -270,9 +269,11 @@ class _SwipeCartState extends State<SwipeCart> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       setState(() {
-                                                        if (foodItems[index]["counter"] >
+                                                        if (foodItems[index]
+                                                                .counter >
                                                             1) {
-                                                          foodItems[index]["counter"]--;
+                                                          foodItems[index]
+                                                              .counter--;
                                                         }
                                                       });
                                                     },
@@ -290,7 +291,7 @@ class _SwipeCartState extends State<SwipeCart> {
                                                   ),
 
                                                   Text(
-                                                    '${foodItems[index]["counter"]}',
+                                                    '${foodItems[index].counter}',
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                     ),
@@ -299,7 +300,8 @@ class _SwipeCartState extends State<SwipeCart> {
                                                   GestureDetector(
                                                     onTap: () {
                                                       setState(() {
-                                                        foodItems[index]["counter"]++;
+                                                        foodItems[index]
+                                                            .counter++;
                                                       });
                                                     },
                                                     child: Padding(

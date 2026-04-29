@@ -1,25 +1,28 @@
 [{
+
+
   "status": "success",
-  "message": "Item added to cart",
+  "message": " added to cart",
   "data": {
-    "cartId": "CART_001",
+   
     "items": [
       {
-        "productId": "P101",
+        
         "name": "Veg Burger",
         "price": 120,
-        "quantity": 2,
+        "quantity": 1,
         "image": "burger.png"
+        
+
 
 
       }
     ],
     "pricing": {
-      "subtotal": 240,
+      "grosstotal": 120,
       "deliveryFee": 40,
-  "handling chargess": 0.00,
-      "tax": 20,
-      "total": 300
+      "gstPercentage": 0.05,
+      "grandtotal": 166
     }
   }
 }

@@ -2,7 +2,7 @@
   "status": "success",
   "message": "OTP sent successfully",
   "data": {
-    "otpId": "OTP_123456",
+    
     "otp": "123456",
     "email": "user@gmail.com",
     "expiresIn": 300

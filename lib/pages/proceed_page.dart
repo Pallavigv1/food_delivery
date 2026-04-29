@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
 import 'package:food_delivery/constants/total_amount.dart';
-import 'package:food_delivery/json/cart/data_models/cart_response.dart';
+//import 'package:food_delivery/json/cart/data_models/cart_response.dart';
 import 'package:food_delivery/utilities/payment_alert.dart';
 import 'package:food_delivery/constants/food_data.dart';
 
@@ -13,7 +13,7 @@ class Proceed extends StatefulWidget {
 }
 
 class _ProceedState extends State<Proceed> {
-  List<Map<String, dynamic>> get foodItems => TotalAmount.totalamount;
+  List<FoodItem> get foodItems => TotalAmount.totalamount;
   double CalculateTotal(List<Map<String, dynamic>> cartItems) {
     return cartItems.fold(
       0.0,
@@ -25,14 +25,11 @@ class _ProceedState extends State<Proceed> {
   static const double deliveryCharge = 40;
   static const double gstPerc = 0.05;
 
-  double grosstotal(List<Map<String, dynamic>> items) {
-    return items.fold(
-      0.0,
-      (sum, item) => sum + (item['price'] * item['quantity']),
-    );
+  double grosstotal(List<FoodItem> items) {
+    return items.fold(0.0, (sum, item) => sum + (item.price * item.counter));
   }
 
-  double get subgrosstotal => grosstotal(TotalAmount.totalamount);
+  double get subgrosstotal => grosstotal(foodItems);
   double get gst => subgrosstotal * gstPerc;
   double get total => subgrosstotal + gst + deliveryCharge;
 
@@ -242,7 +239,7 @@ class _ProceedState extends State<Proceed> {
                       ),
                     ),
                     Text(
-                      '# ${CalculateTotal(foodItems).toStringAsFixed(3)}',
+                      '# ${total.toStringAsFixed(2)}}',
                       style: TextStyle(fontSize: 22),
                     ),
                   ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
-import 'package:food_delivery/constants/total_amount.dart';
+import 'package:food_delivery/constants/cart_data.dart';
+import 'package:food_delivery/constants/food_data.dart';
+//import 'package:food_delivery/constants/total_amount.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({super.key});
@@ -10,7 +12,7 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
-  List<Map<String, dynamic>> get foodItems => TotalAmount.totalamount;
+  List<FoodItem> get foodItems => MyCartData.cartItems;
   // double CalculateTotal(List<Map<String, dynamic>> cartItems) {
   //   return cartItems.fold(
   //     0.0,
@@ -22,16 +24,13 @@ class _CheckOutState extends State<CheckOut> {
   static const double deliveryCharge = 40;
   static const double gstPerc = 0.05;
 
-  double grosstotal(List<Map<String, dynamic>> items) {
-    return items.fold(
-      0.0,
-      (sum, item) => sum + (item['price'] * item['quantity']),
-    );
+  double grosstotal(List<FoodItem> items) {
+    return items.fold(0.0, (sum, item) => sum + (item.price * item.counter));
   }
 
-  double get subgrosstotal => grosstotal(TotalAmount.totalamount);
+  double get subgrosstotal => grosstotal(foodItems);
   double get gst => subgrosstotal * gstPerc;
-  double get total => subgrosstotal + gst + deliveryCharge;
+  double get grandtotal => subgrosstotal + gst + deliveryCharge;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +45,7 @@ class _CheckOutState extends State<CheckOut> {
             icon: const Icon(Icons.arrow_back_ios),
             iconSize: 20,
             onPressed: () {
-              Navigator.of(context).pop(FavBlank());
+              Navigator.of(context).pop();
             },
           ),
         ),
@@ -269,7 +268,7 @@ class _CheckOutState extends State<CheckOut> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 80),
                     child: Text(
-                      '# ${total.toStringAsFixed(2)}',
+                      '# ${grandtotal.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Color(0xff000000),
                         fontSize: 22,

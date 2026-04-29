@@ -1,3 +1,5 @@
+import 'package:food_delivery/constants/food_data.dart';
+
 class MyCartData {
-  static List<Map<String, dynamic>> cartItems = [];
+  static List<FoodItem> cartItems = [];
 }

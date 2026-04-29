@@ -1,3 +1,5 @@
+import 'package:food_delivery/constants/food_data.dart';
+
 class TotalAmount {
-  static List<Map<String, dynamic>> totalamount = [];
+  static List<FoodItem> totalamount = [];
 }

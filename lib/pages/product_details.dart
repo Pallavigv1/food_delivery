@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants/cart_data.dart';
 import 'package:food_delivery/constants/food_data.dart';
+import 'package:food_delivery/constants/total_amount.dart';
 import 'package:food_delivery/constants/wishlist_data.dart';
 import 'package:food_delivery/screens/home_screen.dart';
 //import 'package:food_delivery/pages/no_wifi.dart';
@@ -63,21 +64,6 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Align(
-            //   alignment: Alignment.topRight,
-            //   child: IconButton(
-            //     onPressed: () {
-            //       Navigator.of(context).push(
-            //         MaterialPageRoute(
-            //           builder: (context) {
-            //             return Favourites();
-            //           },
-            //         ),
-            //       );
-            //     },
-            //     icon: Icon(Icons.favorite_border_outlined),
-            //   ),
-            // ),
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -210,13 +196,13 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                     SizedBox(
                       height: 75,
-                      width: 325,
+                      width: 250,
 
                       child: Padding(
                         padding: const EdgeInsets.only(
                           bottom: 5,
-                          left: 10,
-                          right: 10,
+                          left: 0,
+                          right: 0,
                         ),
                         child: ElevatedButton(
                           style: ButtonStyle(
@@ -226,19 +212,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           onPressed: () {
                             setState(() {
-                              MyCartData.cartItems.add({
-                                'name': widget.foodItem.name,
-                                'image': widget.foodItem.image,
-                                'price': widget.foodItem.price,
-                                'counter': 1,
-                              });
+                              MyCartData.cartItems.add(widget.foodItem);
                             });
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  '${widget.foodItem.name} added to cart',
-                                ),
-                              ),
+                              SnackBar(content: Text('Added to cart')),
                             );
                           },
 
