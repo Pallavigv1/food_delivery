@@ -8,6 +8,7 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
+  int selectedPaymentMethod = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -132,109 +133,110 @@ class _MyProfileState extends State<MyProfile> {
                 children: [
                   SizedBox(height: 16),
 
-                  Row(
-                    children: [
-                      SizedBox(width: 16),
-                      Icon(Icons.circle_outlined, size: 15),
-                      SizedBox(width: 12),
-                      Container(
-                        height: 40,
-                        width: 40,
-                        clipBehavior: Clip.none,
-                        decoration: BoxDecoration(
-                          color: Color(0xffF47B0A),
-                          borderRadius: BorderRadius.circular(10),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedPaymentMethod == 0) {
+                          selectedPaymentMethod = -1;
+                        } else {
+                          selectedPaymentMethod = 0;
+                        }
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Icon(
+                          selectedPaymentMethod == 0
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          color: selectedPaymentMethod == 0
+                              ? Colors.deepOrange
+                              : Colors.grey,
+                          size: 15,
                         ),
-                        child: Image.asset(
-                          'assets/icons/ic_cardpay.png',
-                          errorBuilder: (context, error, stackTrace) {
-                            return Text("ABCD");
-                          },
-                          // height: 10,
-                          // width: 10,
-                          frameBuilder:
-                              (context, child, frame, wasSynchronouslyLoaded) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: child,
-                                );
-                              },
-                          // filterQuality: FilterQuality.low,
-
-                          // fit: BoxFit.scaleDown,
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Text('Card'),
-                    ],
-                  ),
-
-                  SizedBox(height: 10),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Divider(thickness: 1, color: Colors.grey.shade300),
-                  ),
-
-                  SizedBox(height: 10),
-
-                  Row(
-                    children: [
-                      SizedBox(width: 16),
-                      Icon(Icons.circle_outlined, size: 15),
-                      SizedBox(width: 12),
-                      Container(
-                        height: 40,
-                        clipBehavior: Clip.none,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: Color(0xffEB4796),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-
-                        child: Image.asset(
-                          'assets/icons/ic_online-banking.png',
-                          errorBuilder: (context, error, stackTrace) {
-                            return Text('Error');
-                          },
-                          frameBuilder:
-                              (context, child, frame, wasSynchronouslyLoaded) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: child,
-                                );
-                              },
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Text('Bank account'),
-                    ],
-                  ),
-
-                  SizedBox(height: 10),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Divider(thickness: 1, color: Colors.grey.shade300),
-                  ),
-
-                  SizedBox(height: 10),
-
-                  Row(
-                    children: [
-                      SizedBox(width: 16),
-                      Icon(Icons.circle_outlined, size: 15),
-                      SizedBox(width: 12),
-                      Center(
-                        child: Container(
+                        SizedBox(width: 12),
+                        Container(
                           height: 40,
                           width: 40,
+                          clipBehavior: Clip.none,
                           decoration: BoxDecoration(
-                            color: Color(0xff0038FF),
+                            color: Color(0xffF47B0A),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Image.asset(
-                            'assets/icons/ic_paypal.png',
+                            'assets/icons/ic_cardpay.png',
+                            errorBuilder: (context, error, stackTrace) {
+                              return Text("ABCD");
+                            },
+                            // height: 10,
+                            // width: 10,
+                            frameBuilder:
+                                (
+                                  context,
+                                  child,
+                                  frame,
+                                  wasSynchronouslyLoaded,
+                                ) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: child,
+                                  );
+                                },
+                            // filterQuality: FilterQuality.low,
+
+                            // fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Text('Card'),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(thickness: 1, color: Colors.grey.shade300),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedPaymentMethod == 1) {
+                          selectedPaymentMethod = -1;
+                        } else {
+                          selectedPaymentMethod = 1;
+                        }
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Icon(
+                          selectedPaymentMethod == 1
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          color: selectedPaymentMethod == 1
+                              ? Colors.deepOrange
+                              : Colors.grey,
+                          size: 15,
+                        ),
+                        SizedBox(width: 12),
+                        Container(
+                          height: 40,
+                          clipBehavior: Clip.none,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Color(0xffEB4796),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+
+                          child: Image.asset(
+                            'assets/icons/ic_online-banking.png',
                             errorBuilder: (context, error, stackTrace) {
                               return Text('Error');
                             },
@@ -252,10 +254,76 @@ class _MyProfileState extends State<MyProfile> {
                                 },
                           ),
                         ),
-                      ),
-                      SizedBox(width: 12),
-                      Text('Paypal'),
-                    ],
+                        SizedBox(width: 12),
+                        Text('Bank account'),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Divider(thickness: 1, color: Colors.grey.shade300),
+                  ),
+
+                  SizedBox(height: 10),
+
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedPaymentMethod == 2) {
+                          selectedPaymentMethod = -1;
+                        } else {
+                          selectedPaymentMethod = 2;
+                        }
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Icon(
+                          selectedPaymentMethod == 2
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          color: selectedPaymentMethod == 2
+                              ? Colors.deepOrange
+                              : Colors.grey,
+                          size: 15,
+                        ),
+                        SizedBox(width: 12),
+                        Center(
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xff0038FF),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.asset(
+                              'assets/icons/ic_paypal.png',
+                              errorBuilder: (context, error, stackTrace) {
+                                return Text('Error');
+                              },
+                              frameBuilder:
+                                  (
+                                    context,
+                                    child,
+                                    frame,
+                                    wasSynchronouslyLoaded,
+                                  ) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: child,
+                                    );
+                                  },
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Text('Paypal'),
+                      ],
+                    ),
                   ),
                 ],
               ),
