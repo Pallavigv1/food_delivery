@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
 import 'package:food_delivery/constants/cart_data.dart';
 import 'package:food_delivery/constants/food_data.dart';
+import 'package:food_delivery/pages/change_address.dart';
+import 'package:food_delivery/pages/payment_pay.dart';
 //import 'package:food_delivery/constants/total_amount.dart';
 
 class CheckOut extends StatefulWidget {
@@ -12,7 +14,8 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
-  List<FoodItem> get foodItems => MyCartData.cartItems;
+  List<Map<String, dynamic>> get foodItems => MyCartData.cartItems;
+  int selectedDeliveryMethod = 0;
   // double CalculateTotal(List<Map<String, dynamic>> cartItems) {
   //   return cartItems.fold(
   //     0.0,
@@ -24,8 +27,11 @@ class _CheckOutState extends State<CheckOut> {
   static const double deliveryCharge = 40;
   static const double gstPerc = 0.05;
 
-  double grosstotal(List<FoodItem> items) {
-    return items.fold(0.0, (sum, item) => sum + (item.price * item.counter));
+  double grosstotal(List<Map<String, dynamic>> items) {
+    return items.fold(
+      0.0,
+      (sum, item) => sum + (item['price'] * item['counter']),
+    );
   }
 
   double get subgrosstotal => grosstotal(foodItems);
@@ -114,7 +120,15 @@ class _CheckOutState extends State<CheckOut> {
                       fontWeight: FontWeight(400),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ChangeAddress();
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -199,21 +213,40 @@ class _CheckOutState extends State<CheckOut> {
                 children: [
                   SizedBox(height: 16),
 
-                  Row(
-                    children: [
-                      SizedBox(width: 16),
-                      Icon(Icons.circle_outlined, size: 15),
-
-                      SizedBox(width: 12),
-                      Text(
-                        'Door delivery',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight(400),
-                          color: Color(0xff000000),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedDeliveryMethod == 0) {
+                          selectedDeliveryMethod = -1;
+                        } else {
+                          selectedDeliveryMethod = 0;
+                        }
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Icon(
+                          selectedDeliveryMethod == 0
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          color: selectedDeliveryMethod == 0
+                              ? Colors.deepOrange
+                              : Colors.grey,
+                          size: 15,
                         ),
-                      ),
-                    ],
+
+                        SizedBox(width: 12),
+                        Text(
+                          'Door delivery',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight(400),
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
 
                   SizedBox(height: 10),
@@ -225,21 +258,41 @@ class _CheckOutState extends State<CheckOut> {
 
                   SizedBox(height: 10),
 
-                  Row(
-                    children: [
-                      SizedBox(width: 16),
-                      Icon(Icons.circle_outlined, size: 15),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (selectedDeliveryMethod == 1) {
+                          selectedDeliveryMethod = -1;
+                        } else {
+                          selectedDeliveryMethod = 1;
+                        }
+                      });
+                    },
 
-                      SizedBox(width: 12),
-                      Text(
-                        'Pick up',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight(400),
-                          color: Color(0xff000000),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        Icon(
+                          selectedDeliveryMethod == 1
+                              ? Icons.radio_button_checked
+                              : Icons.radio_button_off,
+                          color: selectedDeliveryMethod == 1
+                              ? Colors.deepOrange
+                              : Colors.grey,
+                          size: 15,
                         ),
-                      ),
-                    ],
+
+                        SizedBox(width: 12),
+                        Text(
+                          'Pick up',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight(400),
+                            color: Color(0xff000000),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -266,12 +319,14 @@ class _CheckOutState extends State<CheckOut> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 80),
+                    padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.13,
+                    ),
                     child: Text(
                       '# ${grandtotal.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Color(0xff000000),
-                        fontSize: 22,
+                        fontSize: 18,
                         fontWeight: FontWeight(400),
                       ),
                     ),
@@ -294,7 +349,15 @@ class _CheckOutState extends State<CheckOut> {
                       Color(0xffFA4A0C),
                     ),
                   ),
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Payment();
+                        },
+                      ),
+                    );
+                  },
 
                   child: Text(
                     'Proceed to payment',

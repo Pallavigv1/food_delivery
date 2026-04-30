@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
+import 'package:food_delivery/constants/cart_data.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key});
@@ -9,6 +10,23 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+  int selectedPaymentMethod = 0;
+  int selectedDeliveryMethod = 0;
+  List<Map<String, dynamic>> get foodItems => MyCartData.cartItems;
+
+  static const double deliveryCharge = 40;
+  static const double gstPerc = 0.05;
+
+  double grosstotal(List<Map<String, dynamic>> items) {
+    return items.fold(
+      0.0,
+      (sum, item) => sum + (item['price'] * item["counter"]),
+    );
+  }
+
+  double get subgrosstotal => grosstotal(foodItems);
+  double get gst => subgrosstotal * gstPerc;
+  double get grandtotal => subgrosstotal + gst + deliveryCharge;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,26 +104,47 @@ class _PaymentState extends State<Payment> {
                     children: [
                       SizedBox(height: 16),
 
-                      Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Icon(Icons.circle_outlined, size: 15),
-                          SizedBox(width: 12),
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Color(0xffF47B0A),
-                              borderRadius: BorderRadius.circular(10),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (selectedPaymentMethod == 0) {
+                              selectedPaymentMethod = -1;
+                            } else {
+                              selectedPaymentMethod = 0;
+                            }
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Icon(
+                              selectedPaymentMethod == 0
+                                  ? Icons.radio_button_checked
+                                  : Icons.radio_button_off,
+                              color: selectedPaymentMethod == 0
+                                  ? Colors.deepOrange
+                                  : Colors.grey,
+                              size: 15,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset('assets/icons/ic_cardpay.png'),
+                            SizedBox(width: 12),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: Color(0xffF47B0A),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/icons/ic_cardpay.png',
+                                ),
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 12),
-                          Text('Card'),
-                        ],
+                            SizedBox(width: 12),
+                            Text('Card'),
+                          ],
+                        ),
                       ),
 
                       SizedBox(height: 10),
@@ -117,28 +156,47 @@ class _PaymentState extends State<Payment> {
 
                       SizedBox(height: 10),
 
-                      Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Icon(Icons.circle_outlined, size: 15),
-                          SizedBox(width: 12),
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: Color(0xffEB4796),
-                              borderRadius: BorderRadius.circular(10),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (selectedPaymentMethod == 1) {
+                              selectedPaymentMethod = -1;
+                            } else {
+                              selectedPaymentMethod = 1;
+                            }
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Icon(
+                              selectedPaymentMethod == 1
+                                  ? Icons.radio_button_checked
+                                  : Icons.radio_button_off,
+                              color: selectedPaymentMethod == 1
+                                  ? Colors.deepOrange
+                                  : Colors.grey,
+                              size: 15,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/icons/ic_online-banking.png',
+                            SizedBox(width: 12),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: Color(0xffEB4796),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  'assets/icons/ic_online-banking.png',
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(width: 12),
-                          Text('Bank account'),
-                        ],
+                            SizedBox(width: 12),
+                            Text('Bank account'),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -169,13 +227,32 @@ class _PaymentState extends State<Payment> {
                     children: [
                       SizedBox(height: 16),
 
-                      Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Icon(Icons.circle_outlined, size: 15),
-                          SizedBox(width: 12),
-                          Text('Door delivery'),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (selectedDeliveryMethod == 0) {
+                              selectedDeliveryMethod = -1;
+                            } else {
+                              selectedDeliveryMethod = 0;
+                            }
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Icon(
+                              selectedDeliveryMethod == 0
+                                  ? Icons.radio_button_checked
+                                  : Icons.radio_button_off,
+                              color: selectedDeliveryMethod == 0
+                                  ? Colors.deepOrange
+                                  : Colors.grey,
+                              size: 15,
+                            ),
+                            SizedBox(width: 12),
+                            Text('Door delivery'),
+                          ],
+                        ),
                       ),
 
                       SizedBox(height: 10),
@@ -187,13 +264,32 @@ class _PaymentState extends State<Payment> {
 
                       SizedBox(height: 10),
 
-                      Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Icon(Icons.circle_outlined, size: 15),
-                          SizedBox(width: 12),
-                          Text('Pick up'),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (selectedDeliveryMethod == 1) {
+                              selectedDeliveryMethod = -1;
+                            } else {
+                              selectedDeliveryMethod = 1;
+                            }
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            SizedBox(width: 16),
+                            Icon(
+                              selectedDeliveryMethod == 1
+                                  ? Icons.radio_button_checked
+                                  : Icons.radio_button_off,
+                              color: selectedDeliveryMethod == 1
+                                  ? Colors.deepOrange
+                                  : Colors.grey,
+                              size: 15,
+                            ),
+                            SizedBox(width: 12),
+                            Text('Pick up'),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -214,7 +310,10 @@ class _PaymentState extends State<Payment> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text('23,000', style: TextStyle(fontSize: 22)),
+                    Text(
+                      '#${grandtotal.toStringAsFixed(2)}',
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ],
                 ),
               ),

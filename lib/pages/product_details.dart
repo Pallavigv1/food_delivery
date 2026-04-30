@@ -212,7 +212,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                           ),
                           onPressed: () {
                             setState(() {
-                              MyCartData.cartItems.add(widget.foodItem);
+                              MyCartData.cartItems.add({
+                                "name": widget.foodItem.name,
+                                "price": widget.foodItem.price,
+                                "counter": widget.foodItem.counter,
+                                'image': widget.foodItem.image,
+                              });
                             });
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text('Added to cart')),

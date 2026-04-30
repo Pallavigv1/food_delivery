@@ -1,0 +1,32 @@
+{
+    "test":[
+        {
+            "name":"pallavi"
+        }
+    ]
+}
+
+
+
+{
+    "name":"pallavi",
+    "age":26,
+    "isEligibleForVoting":true,
+    "height":5.1,
+}
+
+
+class test{
+    String name;
+    int age;
+    bool isEligibleForVoting;
+    double height;
+    
+}
+
+class test{
+    required this.name;
+    required this.age;
+    required this.isEligibleForVoting;
+    required this.height;
+}

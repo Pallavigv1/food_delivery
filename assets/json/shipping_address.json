@@ -1,0 +1,25 @@
+{
+    "first name":"Pallavi",
+    "last name": "GV",
+    "id": "1",
+    "label": {
+        "label-1":"home",
+        "label-2":"office",
+        "label-3":"rental",
+         "label-4":"billing",
+          "label-5":"other"
+
+    },
+
+    "full address":{
+        "Door#/floor#":"#123, 2nd floor",
+        "Street":"Soham House, Ram Maruti Road, Thane (west)",
+        "city":"Mumbai",
+        "State/province/area ":"Maharashtra",
+        "Zipcode": 400602
+
+    },
+    "Phone number": 222536950,
+    "Country calling code":"+91",
+    "Country": "India"
+}
