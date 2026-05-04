@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/faq_page.dart';
 
 import 'package:food_delivery/pages/product_details.dart';
 //import 'package:food_delivery/pages/login_page.dart';

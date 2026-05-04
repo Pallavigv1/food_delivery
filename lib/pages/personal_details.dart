@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/bottom_navigation/fav_blank.dart';
+import 'package:food_delivery/pages/faq_page.dart';
+import 'package:food_delivery/screens/orders_screen.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
@@ -189,12 +191,23 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    'Orders',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OrdersScreen();
+                          },
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Orders',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -257,20 +270,40 @@ class _PersonalDetailsState extends State<PersonalDetails> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
-                  child: Text(
-                    'Faq',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return FaqPage();
+                          },
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Faq',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return FaqPage();
+                          },
+                        ),
+                      );
+                    },
+                    icon: Icon(Icons.arrow_forward_ios, size: 16),
+
                     color: Colors.black,
                   ),
                 ),

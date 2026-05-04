@@ -14,7 +14,7 @@
     "isEligibleForVoting":true,
     "height":5.1,
 }
-
+  
 
 class test{
     String name;
@@ -30,3 +30,36 @@ class test{
     required this.isEligibleForVoting;
     required this.height;
 }
+
+
+
+---------------------------------------------------
+
+class Testing{
+   final  List<TestData> test;
+
+    Testing({required this.test});
+}
+
+factory Testing.fromJson(Map<String, dynamic> json){
+    return Testing (
+    Testing: Testdata. fromJson json[test]
+    
+    );
+}
+
+class TestData{
+    final String name;
+
+    TestData({
+        required this.name
+    });
+    
+}
+
+factory TestData.fromJson (Map<String,dynamic> json){
+    return TestData(
+    name : json[Pallavi]
+    );
+}
+
