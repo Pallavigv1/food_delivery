@@ -16,6 +16,7 @@ class CheckOut extends StatefulWidget {
 class _CheckOutState extends State<CheckOut> {
   List<Map<String, dynamic>> get foodItems => MyCartData.cartItems;
   int selectedDeliveryMethod = 0;
+  dynamic currentAddress;
   // double CalculateTotal(List<Map<String, dynamic>> cartItems) {
   //   return cartItems.fold(
   //     0.0,
@@ -113,21 +114,27 @@ class _CheckOutState extends State<CheckOut> {
 
                 TextButton(
                   child: Text(
-                    'change',
+                    'Change',
                     style: TextStyle(
                       color: Color(0xffF47B0A),
                       fontSize: 13,
                       fontWeight: FontWeight(400),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(
+                  onPressed: () async {
+                    final selected = await Navigator.push(
+                      context,
                       MaterialPageRoute(
                         builder: (context) {
                           return ChangeAddress();
                         },
                       ),
                     );
+                    if (selected != null) {
+                      setState(() {
+                        currentAddress = selected;
+                      });
+                    }
                   },
                 ),
               ],
@@ -137,52 +144,60 @@ class _CheckOutState extends State<CheckOut> {
             Container(
               width: 315,
               height: 168,
+              padding: EdgeInsets.all(15),
               decoration: BoxDecoration(
                 color: Color(0xffFFFFFF),
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 100, top: 20),
-                    child: Text(
-                      'Marvis Kparobo',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight(500),
+              child: currentAddress == null
+                  ? Center(
+                      child: Text(
+                        'No Address Selected',
+                        style: TextStyle(color: Colors.grey),
                       ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${currentAddress.firstname} ${currentAddress.lastname}",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Divider(),
+                        Text(
+                          currentAddress.fulladdress,
+                          maxLines: 2,
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 12,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          "Zipcode: ${currentAddress.zipCode.toString()}",
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 12,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          "${currentAddress.state}, ${currentAddress.country}",
+                          maxLines: 1,
+                          style: TextStyle(fontSize: 12),
+                        ),
+                        Text(
+                          "Phone: ${currentAddress.phonenumber} ",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 2),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 35, right: 35),
-                    child: Divider(thickness: 1, color: Colors.grey.shade300),
-                  ),
-                  Text(
-                    'Km 5 refinery road oppsite re\npublic road, effurun, delta state',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight(400)),
-                  ),
-                  SizedBox(height: 2),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 35, right: 35),
-                    child: Divider(thickness: 1, color: Colors.grey.shade300),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 120, bottom: 20),
-                    child: Text(
-                      '+234 9011039271',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight(400),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
+
             SizedBox(height: 30),
 
             Padding(

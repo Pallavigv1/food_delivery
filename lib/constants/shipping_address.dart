@@ -44,7 +44,7 @@ class Address {
       country: json['Country'],
       isDefault: json['isDefault'],
       state: json['State'],
-      zipCode: json['zipcode'],
+      zipCode: json['zipCode'],
     );
   }
   String get typeString => type.name;

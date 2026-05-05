@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/pages/personal_details.dart';
+import 'package:food_delivery/utilities/artcles_apiservice.dart';
 
 class QnaPage extends StatefulWidget {
   final String searchedQuery;
@@ -12,6 +13,8 @@ class QnaPage extends StatefulWidget {
 class _QnaPageState extends State<QnaPage> {
   final TextEditingController searchController = TextEditingController();
 
+  List articles = [];
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,14 +75,22 @@ class _QnaPageState extends State<QnaPage> {
                 child: TextField(
                   controller: searchController,
 
-                  onSubmitted: (query) {
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) {
-                    //       return QnaPage(searchedQuery: query);
-                    //     },
-                    //   ),
-                    // );
+                  onSubmitted: (query) async {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    try {
+                      final apiServices = ArtclesApiservice();
+                      final results = await apiServices.searchArticles(query);
+                      setState(() {
+                        articles = results;
+                        isLoading = false;
+                      });
+                    } catch (e) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
                   },
                   decoration: InputDecoration(
                     filled: true,
@@ -101,6 +112,48 @@ class _QnaPageState extends State<QnaPage> {
                 ),
               ),
             ),
+          ),
+
+          Expanded(
+            child: isLoading
+                ? Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: articles.length,
+                    itemBuilder: (context, index) {
+                      final item = articles[index];
+
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item["title"],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                item["body"],
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
