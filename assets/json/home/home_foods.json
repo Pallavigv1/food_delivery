@@ -1,0 +1,128 @@
+{
+  "tab_bar": [
+    "foods",
+    "drinks",
+    "snacks",
+    "sauce"
+  ],
+  "data": [
+    [
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      }
+    ],
+    [
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      },
+      {
+        "product_name": "Veggie tomato mix",
+        "product_id": 1,
+        "product_price": 1900,
+        "image": "sdfdfs.svg",
+        "category": "food",
+        "category_id": 1
+      }
+    ],
+    [],
+    []
+  ]
+}

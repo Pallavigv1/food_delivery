@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 
-class NoWifi extends StatefulWidget {
-  const NoWifi({super.key});
+class NoWifi extends StatelessWidget {
+  final VoidCallback? onRetry;
+  const NoWifi({super.key, required this.onRetry});
 
-  @override
-  State<NoWifi> createState() => _NoWifiState();
-}
-
-class _NoWifiState extends State<NoWifi> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffF5F5F8),
-      extendBodyBehindAppBar: true,
+    return Material(
+      color: Color(0xffF5F5F8),
 
-      body: Column(
+      //extendBodyBehindAppBar: true,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
@@ -55,7 +51,7 @@ class _NoWifiState extends State<NoWifi> {
                     Color(0xffFA4A0C),
                   ),
                 ),
-                onPressed: null,
+                onPressed: onRetry ?? () {},
 
                 child: Text(
                   'Try again',

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/pages/check_out.dart';
+import 'package:food_delivery/pages/no_wifi.dart';
 import 'package:food_delivery/pages/not_found.dart';
 import 'package:food_delivery/pages/payment_pay.dart';
 import 'package:food_delivery/pages/personal_details.dart';
 import 'package:food_delivery/pages/proceed_page.dart';
 import 'package:food_delivery/pages/swipe_cart.dart';
 import 'package:food_delivery/screens/drawer_screen.dart';
+import 'package:food_delivery/screens/splash_screen.dart';
 
 class FavBlank extends StatefulWidget {
   const FavBlank({super.key});
@@ -118,6 +120,18 @@ class _FavBlankState extends State<FavBlank> {
                 );
               },
               child: Text('Not Found'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return NoWifi(onRetry: () {});
+                    },
+                  ),
+                );
+              },
+              child: Text('No Internet'),
             ),
           ],
         ),
