@@ -22,9 +22,18 @@ import 'package:food_delivery/screens/splash_screen.dart';
 import 'package:food_delivery/utilities/done_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:food_delivery/utilities/internet_sensitive_wrappper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
+// void async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(MyApp());
+// }
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // final prefs = await SharedPreferences.getInstance();
+  // final isLoggedIn = prefs.getBool("is_logged_in") ?? false;
   await Firebase.initializeApp();
   runApp(MyApp());
 }

@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/pages/login_page.dart';
+import 'package:food_delivery/screens/drawer_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<bool> checkLoginstatus() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool('is_logged_in') ?? true;
+}
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,16 +16,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  // static const String KEYLOGIN = "Login";
+  // @override
+  // void initState() {
+  //   Future.delayed(const Duration(seconds: 3), () {
+  //     if (!mounted) return;
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute<void>(builder: (context) => const LoginPage()),
+  //     );
+  //   });
+  //   super.initState();
+  // }
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
-      if (!mounted) return;
-      Navigator.push(
-        context,
-        MaterialPageRoute<void>(builder: (context) => const LoginPage()),
-      );
-    });
     super.initState();
+
+    checkLogin();
   }
 
   @override
@@ -69,5 +84,41 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ],
     );
+  }
+
+  void checkLogin() async {
+    var sharedPref = await SharedPreferences.getInstance();
+    var isLoggedIn = sharedPref.getBool("isLoggedIn");
+
+    Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
+      if (isLoggedIn != null) {
+        if (isLoggedIn) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) {
+                return DrawerScreen();
+              },
+            ),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) {
+                return LoginPage();
+              },
+            ),
+          );
+        }
+      } else {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) {
+              return LoginPage();
+            },
+          ),
+        );
+      }
+    });
   }
 }

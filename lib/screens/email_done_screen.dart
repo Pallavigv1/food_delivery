@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_delivery/screens/drawer_screen.dart';
+import 'package:food_delivery/screens/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmailDoneScreen extends StatefulWidget {
   const EmailDoneScreen({super.key});
@@ -34,8 +36,10 @@ class _EmailDoneScreenState extends State<EmailDoneScreen> {
     });
   }
 
-  void verifyOtp() {
+  void verifyOtp() async {
     if (otpController.text.trim() == '123456') {
+      var sharedPref = await SharedPreferences.getInstance();
+      sharedPref.setBool("isLoggedIn", true);
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) {
